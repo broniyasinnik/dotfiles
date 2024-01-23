@@ -164,17 +164,19 @@ function zombie() {
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/opt/miniconda/ml/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/opt/miniconda/ml/etc/profile.d/conda.sh" ]; then
-        . "/opt/miniconda/ml/etc/profile.d/conda.sh"
+function conda_up() {
+    __conda_setup="$('/opt/miniconda/ml/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+    if [ $? -eq 0 ]; then
+        eval "$__conda_setup"
     else
-        export PATH="/opt/miniconda/ml/bin:$PATH"
+        if [ -f "/opt/miniconda/ml/etc/profile.d/conda.sh" ]; then
+            . "/opt/miniconda/ml/etc/profile.d/conda.sh"
+        else
+            export PATH="/opt/miniconda/ml/bin:$PATH"
+        fi
     fi
-fi
-unset __conda_setup
+    unset __conda_setup
+}
 # <<< conda initialize <<<
 
 
